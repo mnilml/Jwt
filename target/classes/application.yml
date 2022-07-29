@@ -1,0 +1,10 @@
+# 自定义文件路径变量
+file:
+  path: E:/file/
+  imgPath: E:/file/img/
+  staticPath: /facereport/static/captured/
+spring:
+  web:
+    resources:
+      static-locations: file:${file.path}
+

@@ -10,6 +10,7 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpI implements UserService {
@@ -69,7 +70,10 @@ public class UserServiceImpI implements UserService {
 
 
     private boolean checkUserNameIsUnique(User user) {
-        return false;
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getUsername, user.getUsername());
+        List<User> userList = userDao.selectList(lqw);
+        return userList.size() == 0;
     }
 
     private User checkUserIsExit(User user) {
